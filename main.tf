@@ -22,7 +22,7 @@ resource "aws_key_pair" "hashicat" {
 
 resource "aws_vpc" "hashicat" {
   cidr_block           = "${var.address_space}"
-  enable_dns_hostnames = false
+  enable_dns_hostnames = true
 
   tags = {
     Name = "${var.prefix}-vpc"
@@ -100,6 +100,10 @@ resource "aws_route_table" "hashicat" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = "${aws_internet_gateway.hashicat.id}"
+  }
+
+  tags = {
+    Name = "${var.prefix}-route-table"
   }
 }
 
